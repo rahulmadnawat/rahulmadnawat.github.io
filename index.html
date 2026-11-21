@@ -1,416 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahul Madnawat | Software Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #020617;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8;
-            --accent-glow: rgba(56, 189, 248, 0.15);
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rahul Madnawat – Software engineer</title>
+<meta name="description" content="Rahul Madnawat is a software engineer at Uber working on the data stores and services behind Uber Eats Offers. Previously at Rivian and Cisco.">
+<meta property="og:title" content="Rahul Madnawat – Software engineer">
+<meta property="og:description" content="Data stores, caching, and high-throughput services. Software Engineer II at Uber.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232B3FD6'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23fff'%3ERM%3C/text%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EEF1F4;
+    --ink: #16222E;
+    --muted: #4F5F6E;
+    --rule: #C5CED8;
+    --accent: #2B3FD6;
+    --accent-soft: #DCE2FF;
+    --on-accent: #FFFFFF;
+    --display: "Bricolage Grotesque", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    --text: "Newsreader", Georgia, "Times New Roman", serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E151D;
+      --ink: #E8EDF2;
+      --muted: #9AA9B8;
+      --rule: #27323E;
+      --accent: #9DB0FF;
+      --accent-soft: #1E2A52;
+      --on-accent: #0E151D;
+      color-scheme: dark;
+    }
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 1.1875rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+  a:hover { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+  .skip { position: absolute; left: -999px; top: 0.5rem; background: var(--accent); color: var(--on-accent); padding: 0.5rem 1rem; z-index: 10; }
+  .skip:focus { left: 0.5rem; }
 
-        body {
-            background-color: var(--bg-color);
-            background: radial-gradient(circle at 50% -20%, #1e293b 0%, #020617 80%);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+  .wrap { width: min(100% - 3rem, 68rem); margin-inline: auto; }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
-                        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
-            z-index: -1;
-        }
+  /* Navigation */
+  .site-nav { padding-top: 1.5rem; }
+  .site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; font-family: var(--display); font-size: 1rem; font-weight: 500; }
+  .site-nav a { text-decoration: none; }
+  .site-nav a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+  /* Hero */
+  .hero { padding: 3.5rem 0 5rem; }
+  .hero h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 800;
+    font-variation-settings: "wdth" 78;
+    font-stretch: 78%;
+    font-size: clamp(4.25rem, 19vw, 12.5rem);
+    line-height: 0.86;
+    letter-spacing: -0.035em;
+  }
+  .hero h1 span { display: block; }
+  .hero-body { display: grid; grid-template-columns: 1fr; gap: 3rem; margin-top: 3.5rem; align-items: start; }
+  .intro { max-width: 34rem; }
+  .intro p { margin: 0 0 1.25rem; }
+  .intro .lead { font-size: 1.5rem; line-height: 1.35; font-weight: 500; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-family: var(--display); font-weight: 600; font-size: 1.0625rem; }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  /* Latency panel */
+  .panel { border: 1px solid var(--rule); border-radius: 8px; padding: 1.5rem; }
+  .panel h2 { margin: 0 0 1rem; font-family: var(--display); font-size: 1.25rem; font-weight: 700; line-height: 1.2; }
+  .switch { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .switch button {
+    font: 600 0.9375rem/1 var(--display);
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+  }
+  .switch button:hover { border-color: var(--accent); }
+  .switch button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .bar-row { display: grid; grid-template-columns: 4rem 1fr; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-family: var(--display); font-size: 0.9375rem; font-weight: 500; color: var(--muted); }
+  .track { height: 1.75rem; }
+  .fill { height: 100%; width: var(--w); border-radius: 4px; transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .fill.before { background: var(--rule); }
+  .fill.after { background: var(--accent); }
+  .js .fill { width: 0; }
+  .js .drawn .fill { width: var(--w); }
+  .result { margin: 1.25rem 0 0; font-size: 1.0625rem; line-height: 1.5; }
+  .result strong { display: block; font-family: var(--display); font-size: 1.375rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.25rem; }
+  .note { margin: 1rem 0 0; font-size: 0.9375rem; font-style: italic; color: var(--muted); }
 
-        .animate {
-            animation: fadeInUp 0.8s ease forwards;
-        }
+  /* Sections */
+  .section { padding: 4rem 0; border-top: 1px solid var(--rule); }
+  .section > .wrap > h2 { margin: 0 0 2.5rem; font-family: var(--display); font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 750; font-variation-settings: "wdth" 85; line-height: 1; letter-spacing: -0.02em; }
 
-        header {
-            padding: 140px 0 80px 0;
-            text-align: center;
-        }
+  /* Experience timeline */
+  .timeline { list-style: none; margin: 0 0 0 0.4rem; padding: 0; border-left: 2px solid var(--rule); }
+  .timeline > li { position: relative; padding: 0 0 3.25rem 2rem; }
+  .timeline > li:last-child { padding-bottom: 0; }
+  .timeline > li::before { content: ""; position: absolute; left: calc(-1px - 0.375rem); top: 0.7rem; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--accent); }
+  .job-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 1rem; }
+  .job-head h3 { margin: 0; font-family: var(--display); font-size: 1.75rem; font-weight: 700; line-height: 1.2; }
+  .where { color: var(--muted); font-size: 1rem; }
+  .role { margin-top: 1.5rem; }
+  .role-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.15rem 1rem; }
+  .role-head h4 { margin: 0; font-family: var(--display); font-size: 1.125rem; font-weight: 600; }
+  .dates { color: var(--muted); font-size: 1rem; font-variant-numeric: tabular-nums; }
+  .role ul, .project ul { margin: 0.6rem 0 0; padding-left: 1.25rem; max-width: 46rem; }
+  .role li, .project li { margin-bottom: 0.55rem; padding-left: 0.25rem; }
+  .role li::marker, .project li::marker { color: var(--accent); }
+  .metric { font-weight: 600; background: var(--accent-soft); padding: 0 0.25em; border-radius: 3px; }
 
-        h1 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.04em;
-            background: linear-gradient(to bottom, #ffffff 30%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+  /* Open source */
+  .project h3 { margin: 0; font-family: var(--display); font-size: 1.75rem; font-weight: 700; line-height: 1.2; }
+  .project .repo { display: inline-block; margin-top: 0.25rem; color: var(--muted); font-size: 1rem; }
 
-        .subtitle {
-            font-size: 1.5rem;
-            color: var(--accent);
-            font-weight: 400;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 20px var(--accent-glow);
-        }
+  /* Skills */
+  .skills { margin: 0; display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  .skills dt { font-family: var(--display); font-weight: 650; font-size: 1.125rem; }
+  .skills dd { margin: 0.2rem 0 0; max-width: 40rem; }
 
-        .bio {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-        }
+  /* Education */
+  .school h3 { margin: 0; font-family: var(--display); font-size: 1.5rem; font-weight: 700; line-height: 1.25; }
+  .school p { margin: 0.25rem 0 0; }
+  .school .dates { display: block; margin-top: 0.25rem; }
 
-        section {
-            padding: 80px 0;
-        }
+  /* Contact */
+  .contact-email { display: inline-block; font-family: var(--display); font-weight: 750; font-variation-settings: "wdth" 85; font-size: clamp(1.75rem, 6.2vw, 3.5rem); letter-spacing: -0.02em; line-height: 1.1; overflow-wrap: anywhere; }
+  .contact p { max-width: 34rem; margin: 0 0 1.5rem; }
 
-        h2 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-primary);
-        }
+  footer { padding: 2rem 0 3rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9375rem; }
 
-        h2::after {
-            content: "";
-            height: 1px;
-            flex-grow: 1;
-            background: linear-gradient(to right, var(--accent), transparent);
-        }
+  @media (min-width: 52rem) {
+    .hero-body { grid-template-columns: 1fr 26rem; gap: 4rem; }
+    .skills { grid-template-columns: 1fr 1fr; gap: 2rem 3rem; }
+    .skills .wide { grid-column: 1 / -1; }
+  }
 
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 2rem;
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.75rem;
-        }
-
-        .role { font-size: 1.3rem; font-weight: 600; }
-        .company { color: var(--accent); font-weight: 500; }
-        .date { font-size: 0.9rem; color: var(--text-secondary); }
-
-        .sub-role-container {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .sub-role-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.5rem;
-        }
-
-        .sub-role-title {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 1.1rem;
-        }
-
-        .bullet-list {
-            margin-top: 1rem;
-            list-style-type: none;
-        }
-
-        .bullet-list li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.6rem;
-            color: var(--text-secondary);
-        }
-
-        .bullet-list li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-        }
-
-        .highlight { color: var(--text-primary); font-weight: 600; }
-
-        .skills-group { margin-bottom: 2rem; }
-        .skill-group-title {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            display: block;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .skills-container { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-
-        .skill-tag {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.2s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .links {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            padding: 60px 0;
-        }
-
-        .links a {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .links a:hover { color: var(--accent); transform: translateY(-2px); }
-
-        .project-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .project-link:hover { text-decoration: underline; }
-
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            opacity: 0.5;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; }
-            .card-header { flex-direction: column; }
-            .date { margin-top: 0.25rem; }
-            .links { gap: 1.5rem; }
-        }
-    </style>
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .fill { transition: none; }
+  }
+</style>
 </head>
-<body id="top">
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-    <div class="container">
-        <header class="animate">
-            <h1>Rahul Madnawat</h1>
-            <p class="subtitle">Software Engineer @ Uber</p>
-            <p class="bio">
-                Software Engineer focused on building scalable backend systems and distributed infrastructure. 
-                Specializing in high-performance data systems using Go and Rust.
-            </p>
-        </header>
+<header class="wrap">
+  <nav class="site-nav" aria-label="Main">
+    <ul>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#open-source">Open source</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-        <section id="experience" class="animate">
-            <h2 id="sec-exp"><i data-lucide="briefcase"></i> Experience</h2>
+<main id="main">
+  <section class="hero wrap" aria-labelledby="name">
+    <h1 id="name"><span>Rahul</span><span>Madnawat</span></h1>
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="role">Software Engineer II</div>
-                        <div class="company">Uber</div>
-                    </div>
-                    <div class="date">Aug 2024 – Present</div>
-                </div>
-                <ul class="bullet-list">
-                    <li>Architecting high-scale backend systems for <span class="highlight">Uber Eats</span>.</li>
-                    <li>Migrated data stores from Cassandra to MySQL with zero downtime, cutting <span class="highlight">p99 read latency by 60%</span> and improving system reliability.</li>
-                    <li>Designed an in-memory cache over Redis, reducing <span class="highlight">p99 read latency by 80%</span>.</li>
-                    <li>Led migration to separate control/data planes, enabling <span class="highlight">1.5M QPS</span>.</li>
-                </ul>
-            </div>
+    <div class="hero-body">
+      <div class="intro">
+        <p class="lead">I’m a software engineer who builds the data stores and services behind high-traffic products.</p>
+        <p>I’m a Software Engineer II at Uber in San Francisco, working on Uber Eats Offers. There I’ve moved the data store off Cassandra, added a caching layer in front of it, and split the service into separate control and data planes. Before Uber, I built data infrastructure at Rivian.</p>
+        <p class="links">
+          <a href="mailto:madnarah@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/rahul-madnawat">LinkedIn</a>
+          <a href="https://github.com/rahulmadnawat">GitHub</a>
+        </p>
+      </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="role">Software Engineer II</div>
-                        <div class="company">Rivian</div>
-                    </div>
-                    <div class="date">Dec 2023 – Aug 2024</div>
-                </div>
-                <ul class="bullet-list">
-                    <li>Built Rust compaction service for Delta Lake to reduce read latency for thousands of users.</li>
-                    <li>Overhauled AWS Lake Formation using tag-based access control (TBAC).</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="role">Software Engineer</div>
-                        <div class="company">Rivian</div>
-                    </div>
-                    <div class="date">Feb 2023 – Dec 2023</div>
-                </div>
-                <ul class="bullet-list">
-                    <li>Developed high-throughput Go service decoding tens of terabytes of vehicle signals daily.</li>
-                    <li>Cut signal serialization CPU usage by 20% and saved <span class="highlight">$72k/year</span> via Apache Arrow.</li>
-                    <li>Drove Zstandard compression adoption, saving <span class="highlight">$120k/year</span> in storage costs.</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="role">Software Engineering Intern</div>
-                        <div class="company">Rivian</div>
-                    </div>
-                    <div class="date">Jun 2022 – Sep 2022</div>
-                </div>
-                <ul class="bullet-list">
-                    <li>Architected Apache Spark pipeline for ingesting billions of daily audit logs via Kafka.</li>
-                    <li>Built AWS Lambda application to enforce runtime limits on Databricks jobs.</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="role">Software Engineering Intern</div>
-                        <div class="company">Cisco</div>
-                    </div>
-                    <div class="date">Jun 2021 – Sep 2021</div>
-                </div>
-                <ul class="bullet-list">
-                    <li>Developed automated style-violation scanning bot for Python, Java, and SQL.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="projects" class="animate">
-            <h2 id="sec-proj"><i data-lucide="layers"></i> Projects</h2>
-            <div class="card">
-                <div class="card-header">
-                    <div class="role">delta-go</div>
-                    <div class="company">Open Source</div>
-                </div>
-                <ul class="bullet-list">
-                    <li>Contributed to Go library for natively writing Apache Parquet files to Delta tables.</li>
-                    <li>Implemented optimistic concurrency control using Amazon DynamoDB.</li>
-                </ul>
-                <a href="https://github.com/rivian/delta-go" class="project-link" target="_blank">View on GitHub →</a>
-            </div>
-        </section>
-
-        <section id="education" class="animate">
-            <h2 id="sec-edu"><i data-lucide="graduation-cap"></i> Education</h2>
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <div class="role">B.S. Computer Science</div>
-                        <div class="company">UCLA</div>
-                    </div>
-                    <div class="date">2020 – 2022</div>
-                </div>
-                <p class="description">GPA: 3.90/4.00</p>
-            </div>
-        </section>
-
-        <section id="skills" class="animate">
-            <h2 id="sec-skills"><i data-lucide="cpu"></i> Technical Skills</h2>
-            <div class="skills-group">
-                <span class="skill-group-title">Languages</span>
-                <div class="skills-container">
-                    <span class="skill-tag">Go</span><span class="skill-tag">Rust</span><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">C++</span><span class="skill-tag">C</span><span class="skill-tag">SQL</span>
-                </div>
-            </div>
-            <div class="skills-group">
-                <span class="skill-group-title">Distributed & Data Systems</span>
-                <div class="skills-container">
-                    <span class="skill-tag">MySQL</span><span class="skill-tag">Cassandra</span><span class="skill-tag">Redis</span><span class="skill-tag">Kafka</span><span class="skill-tag">Spark</span><span class="skill-tag">Delta Lake</span><span class="skill-tag">Arrow</span>
-                </div>
-            </div>
-            <div class="skills-group">
-                <span class="skill-group-title">Cloud & Infrastructure</span>
-                <div class="skills-container">
-                    <span class="skill-tag">AWS</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">Docker</span><span class="skill-tag">Terraform</span><span class="skill-tag">Databricks</span>
-                </div>
-            </div>
-        </section>
-
-        <div class="links animate">
-            <a href="https://www.linkedin.com/in/rahul-madnawat/" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
-            <a href="https://github.com/rahulmadnawat" target="_blank"><i data-lucidate="github"></i> GitHub</a>
-            <a href="mailto:madnarah@gmail.com"><i data-lucide="mail"></i> Email</a>
+      <div class="panel" id="latency">
+        <h2>Read latency on Uber Eats Offers</h2>
+        <div class="switch" role="group" aria-label="Choose a change to compare">
+          <button type="button" data-view="mysql" aria-pressed="true">Cassandra to MySQL</button>
+          <button type="button" data-view="cache" aria-pressed="false">In-memory cache</button>
         </div>
-
-        <footer>
-            &copy; 2026 Rahul Madnawat.
-        </footer>
+        <div class="bars">
+          <div class="bar-row"><span>Before</span><div class="track"><div class="fill before" style="--w:100%"></div></div></div>
+          <div class="bar-row"><span>After</span><div class="track"><div class="fill after" id="after-bar" style="--w:40%"></div></div></div>
+        </div>
+        <p class="result" aria-live="polite">
+          <strong id="delta">60% lower p99 read latency</strong>
+          <span id="detail">Moved the Offers data store from Cassandra to MySQL with zero downtime.</span>
+        </p>
+        <p class="note">Each bar pair compares one change against its own starting point. They don’t add up to a single total.</p>
+      </div>
     </div>
+  </section>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+  <section class="section" id="experience" aria-labelledby="experience-title">
+    <div class="wrap">
+      <h2 id="experience-title">Experience</h2>
+      <ol class="timeline">
+
+        <li>
+          <div class="job-head"><h3>Uber</h3><span class="where">San Francisco, CA</span></div>
+          <div class="role">
+            <div class="role-head"><h4>Software Engineer II</h4><span class="dates">Aug 2024 – Present</span></div>
+            <ul>
+              <li>Migrated the Uber Eats Offers data store from Cassandra to MySQL with zero downtime, cutting p99 read latency by <span class="metric">60%</span> and improving reliability.</li>
+              <li>Designed and built an in-memory cache layered over the Redis cache-aside for the Offers data store. It replicates the dataset across application servers and reduced p99 read latency by <span class="metric">80%</span>.</li>
+              <li>Split the Offers service out of a monolith into separate control and data planes. The data plane now serves <span class="metric">1.5M QPS</span> of user traffic and <span class="metric">10M active offers</span> on its own, and control-plane failures no longer reach user-facing traffic.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <div class="job-head"><h3>Rivian</h3><span class="where">Palo Alto, CA</span></div>
+
+          <div class="role">
+            <div class="role-head"><h4>Software Engineer II</h4><span class="dates">Dec 2023 – Aug 2024</span></div>
+            <ul>
+              <li>Built a Rust compaction service for Delta Lake tables. It consolidates data files and checkpoints transaction logs, which reduced read latency for thousands of internal data lake users.</li>
+              <li>Overhauled AWS Lake Formation to use tag-based access control (TBAC), which simplified Terraform provisioning and made access easier to scale.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-head"><h4>Software Engineer</h4><span class="dates">Feb 2023 – Dec 2023</span></div>
+            <ul>
+              <li>Developed a high-throughput Go service that decodes tens of terabytes of vehicle signals daily. Object pooling keeps heap allocations low and goroutines keep throughput high.</li>
+              <li>Cut signal serialization CPU time by <span class="metric">20%</span> and saved <span class="metric">$72K a year</span> in EKS costs by adopting Apache Arrow for columnar in-memory storage.</li>
+              <li>Drove adoption of Zstandard compression across the data lake, reducing storage costs by <span class="metric">$120K a year</span>.</li>
+            </ul>
+          </div>
+
+          <div class="role">
+            <div class="role-head"><h4>Software Engineering Intern</h4><span class="dates">Jun 2022 – Sep 2022</span></div>
+            <ul>
+              <li>Architected an end-to-end Apache Spark pipeline that ingests billions of audit logs a day from Kafka into the data lake, including cleansing, transformation, and compaction.</li>
+              <li>Built an AWS Lambda application that enforces configurable runtime limits on Databricks jobs and reports to Slack, improving cost visibility.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <div class="job-head"><h3>Cisco</h3><span class="where">San Jose, CA</span></div>
+          <div class="role">
+            <div class="role-head"><h4>Software Engineering Intern</h4><span class="dates">Jun 2021 – Sep 2021</span></div>
+            <ul>
+              <li>Developed a bot that scans Python, Java, and SQL code for style violations, such as unexpected indentation and missing whitespace around operators, and automatically rejects pull requests that contain them.</li>
+              <li>Improved the bot’s SQL auto-formatting by modifying the pgFormatter source to support SQL shortcuts used internally by business analysts.</li>
+            </ul>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="open-source" aria-labelledby="oss-title">
+    <div class="wrap">
+      <h2 id="oss-title">Open source</h2>
+      <article class="project">
+        <h3>delta-go</h3>
+        <a class="repo" href="https://github.com/rivian/delta-go">github.com/rivian/delta-go</a>
+        <ul>
+          <li>Contributed to a Go library that writes Apache Parquet files natively to Delta tables, removing the Spark-based conversion step from Rivian’s signal-decoding pipeline.</li>
+          <li>Implemented optimistic concurrency control with Amazon DynamoDB to synchronize commits with Apache Spark, enabling multi-cluster writes on Amazon S3.</li>
+          <li>Worked with Databricks’ Delta team to align the library’s low-level API with the other official Delta connectors.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+      <h2 id="skills-title">Skills</h2>
+      <dl class="skills">
+        <div>
+          <dt>Languages</dt>
+          <dd>Go, Rust, Python, Java, C++, C, SQL</dd>
+        </div>
+        <div>
+          <dt>Cloud and infrastructure</dt>
+          <dd>AWS, Kubernetes, Docker, Terraform, Databricks</dd>
+        </div>
+        <div class="wide">
+          <dt>Distributed and data systems</dt>
+          <dd>MySQL, Cassandra, Redis, Apache Kafka, Apache Spark, Delta Lake, Apache Arrow</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" id="education" aria-labelledby="edu-title">
+    <div class="wrap">
+      <h2 id="edu-title">Education</h2>
+      <div class="school">
+        <h3>University of California, Los Angeles</h3>
+        <p>B.S. in Computer Science, GPA 3.90/4.00</p>
+        <span class="dates">Sep 2020 – Dec 2022 · Los Angeles, CA</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 id="contact-title">Contact</h2>
+      <p>Email is the best way to reach me. I’m also on LinkedIn and GitHub.</p>
+      <a class="contact-email" href="mailto:madnarah@gmail.com">madnarah@gmail.com</a>
+      <p class="links" style="margin-top:1.5rem">
+        <a href="https://www.linkedin.com/in/rahul-madnawat">linkedin.com/in/rahul-madnawat</a>
+        <a href="https://github.com/rahulmadnawat">github.com/rahulmadnawat</a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Rahul Madnawat</div>
+</footer>
+
+<script>
+(function () {
+  var views = {
+    mysql: { after: 40, delta: "60% lower p99 read latency", detail: "Moved the Offers data store from Cassandra to MySQL with zero downtime." },
+    cache: { after: 20, delta: "80% lower p99 read latency", detail: "Added an in-memory cache, replicated across application servers, on top of the Redis cache-aside layer." }
+  };
+  var panel = document.getElementById("latency");
+  var afterBar = document.getElementById("after-bar");
+  var delta = document.getElementById("delta");
+  var detail = document.getElementById("detail");
+  var buttons = panel.querySelectorAll("button[data-view]");
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var v = views[btn.getAttribute("data-view")];
+      buttons.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+      afterBar.style.setProperty("--w", v.after + "%");
+      delta.textContent = v.delta;
+      detail.textContent = v.detail;
+    });
+  });
+
+  // Draw the bars once on load.
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { panel.classList.add("drawn"); });
+  });
+})();
+</script>
 </body>
 </html>
