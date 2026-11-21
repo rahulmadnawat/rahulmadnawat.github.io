@@ -99,11 +99,11 @@
   }
   .switch button:hover { border-color: var(--accent); }
   .switch button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-  .bar-row { display: grid; grid-template-columns: 4rem 1fr; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-family: var(--display); font-size: 0.9375rem; font-weight: 500; color: var(--muted); }
+  .bar-row { display: grid; grid-template-columns: 7.5rem 1fr; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; font-family: var(--display); font-size: 0.9375rem; font-weight: 500; color: var(--muted); }
   .track { height: 1.75rem; }
   .fill { height: 100%; width: var(--w); border-radius: 4px; transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
-  .fill.before { background: var(--rule); }
-  .fill.after { background: var(--accent); }
+  .fill { background: var(--rule); }
+  .fill.current { background: var(--accent); }
   .js .fill { width: 0; }
   .js .drawn .fill { width: var(--w); }
   .result { margin: 1.25rem 0 0; font-size: 1.0625rem; line-height: 1.5; }
@@ -185,7 +185,7 @@
     <div class="hero-body">
       <div class="intro">
         <p class="lead">I’m a software engineer who builds the data stores and services behind high-traffic products.</p>
-        <p>I’m a Software Engineer II at Uber in San Francisco, working on Uber Eats Offers. There I’ve moved the data store off Cassandra, added a caching layer in front of it, and split the service into separate control and data planes. Before Uber, I built data infrastructure at Rivian.</p>
+        <p>I’m a Software Engineer II at Uber in San Francisco, working on Uber Eats Offers. There I’ve moved the data store off Cassandra, added a caching layer in front of it, split the service into separate control and data planes, and led a cross-team effort that saved $2.5M a year in compute. Before Uber, I built data infrastructure at Rivian.</p>
         <p class="links">
           <a href="mailto:madnarah@gmail.com">Email</a>
           <a href="https://www.linkedin.com/in/rahul-madnawat">LinkedIn</a>
@@ -196,19 +196,20 @@
 
       <div class="panel" id="latency">
         <h2>Read latency on Uber Eats Offers</h2>
-        <div class="switch" role="group" aria-label="Choose a change to compare">
+        <div class="switch" role="group" aria-label="Choose a stage to compare">
           <button type="button" data-view="mysql" aria-pressed="true">Cassandra to MySQL</button>
-          <button type="button" data-view="cache" aria-pressed="false">In-memory cache</button>
+          <button type="button" data-view="cache" aria-pressed="false">Plus in-memory cache</button>
         </div>
         <div class="bars">
-          <div class="bar-row"><span>Before</span><div class="track"><div class="fill before" style="--w:100%"></div></div></div>
-          <div class="bar-row"><span>After</span><div class="track"><div class="fill after" id="after-bar" style="--w:40%"></div></div></div>
+          <div class="bar-row"><span>Cassandra</span><div class="track"><div class="fill" style="--w:100%"></div></div></div>
+          <div class="bar-row"><span>MySQL</span><div class="track"><div class="fill current" id="bar-mysql" style="--w:40%"></div></div></div>
+          <div class="bar-row"><span>MySQL + cache</span><div class="track"><div class="fill" id="bar-cache" style="--w:0%"></div></div></div>
         </div>
         <p class="result" aria-live="polite">
           <strong id="delta">60% lower p99 read latency</strong>
           <span id="detail">Moved the Offers data store from Cassandra to MySQL with zero downtime.</span>
         </p>
-        <p class="note">Each bar pair compares one change against its own starting point. They don’t add up to a single total.</p>
+        <p class="note">Bars show p99 read latency relative to the Cassandra baseline.</p>
       </div>
     </div>
   </section>
@@ -223,9 +224,10 @@
           <div class="role">
             <div class="role-head"><h4>Software Engineer II</h4><span class="dates">Aug 2024 – Present</span></div>
             <ul>
-              <li>Migrated the Uber Eats Offers data store from Cassandra to MySQL with zero downtime, cutting p99 read latency by <span class="metric">60%</span> and improving reliability.</li>
-              <li>Designed and built an in-memory cache layered over the Redis cache-aside for the Offers data store. It replicates the dataset across application servers and reduced p99 read latency by <span class="metric">80%</span>.</li>
+              <li>Migrated the Uber Eats Offers data store from Cassandra to MySQL with zero downtime, cutting p99 read latency by <span class="metric">60%</span> versus the Cassandra baseline.</li>
+              <li>Designed and built an in-memory cache layered over the Redis cache-aside for the Offers data store. It replicates the dataset across application servers and cut p99 read latency by <span class="metric">80%</span> versus the MySQL baseline.</li>
               <li>Split the Offers service out of a monolith into separate control and data planes. The data plane now serves <span class="metric">1.5M QPS</span> of user traffic and <span class="metric">10M active offers</span> on its own, and control-plane failures no longer reach user-facing traffic.</li>
+              <li>Led a cross-team initiative that saved <span class="metric">$2.5M a year</span> in Offers service compute costs, driving partner teams to deduplicate requests and add client-side caching, and building cost-regression alerting so the savings persist.</li>
             </ul>
           </div>
         </li>
@@ -236,15 +238,15 @@
           <div class="role">
             <div class="role-head"><h4>Software Engineer II</h4><span class="dates">Dec 2023 – Aug 2024</span></div>
             <ul>
-              <li>Built a Rust compaction service for Delta Lake tables. It consolidates data files and checkpoints transaction logs, which reduced read latency for thousands of internal data lake users.</li>
-              <li>Overhauled AWS Lake Formation to use tag-based access control (TBAC), which simplified Terraform provisioning and made access easier to scale.</li>
+              <li>Built a Rust compaction service for Delta Lake tables. It consolidates data files and checkpoints transaction logs, which cut read latency by <span class="metric">50%</span> for thousands of internal data lake users.</li>
+              <li>Overhauled AWS Lake Formation to use tag-based access control (TBAC), replacing roughly <span class="metric">1,500 grants</span> with fewer than <span class="metric">20 tags</span> and simplifying Terraform provisioning.</li>
             </ul>
           </div>
 
           <div class="role">
             <div class="role-head"><h4>Software Engineer</h4><span class="dates">Feb 2023 – Dec 2023</span></div>
             <ul>
-              <li>Developed a high-throughput Go service that decodes tens of terabytes of vehicle signals daily. Object pooling keeps heap allocations low and goroutines keep throughput high.</li>
+              <li>Developed a high-throughput Go service that decodes <span class="metric">10–20M vehicle signals per second</span>, tens of terabytes daily. Object pooling keeps heap allocations low and goroutines keep throughput high.</li>
               <li>Cut signal serialization CPU time by <span class="metric">20%</span> and saved <span class="metric">$72K a year</span> in EKS costs by adopting Apache Arrow for columnar in-memory storage.</li>
               <li>Drove adoption of Zstandard compression across the data lake, reducing storage costs by <span class="metric">$120K a year</span>.</li>
             </ul>
@@ -253,8 +255,8 @@
           <div class="role">
             <div class="role-head"><h4>Software Engineering Intern</h4><span class="dates">Jun 2022 – Sep 2022</span></div>
             <ul>
-              <li>Architected an end-to-end Apache Spark pipeline that ingests billions of audit logs a day from Kafka into the data lake, including cleansing, transformation, and compaction.</li>
-              <li>Built an AWS Lambda application that enforces configurable runtime limits on Databricks jobs and reports to Slack, improving cost visibility.</li>
+              <li>Architected an end-to-end Apache Spark pipeline that ingests billions of audit logs a day from Kafka into the data lake, including cleansing, transformation, and compaction, serving 10+ consuming teams.</li>
+              <li>Built an AWS Lambda application that enforces configurable runtime limits on Databricks jobs, saving <span class="metric">$45K a year</span> and improving cost visibility through Slack reporting.</li>
             </ul>
           </div>
         </li>
@@ -264,8 +266,7 @@
           <div class="role">
             <div class="role-head"><h4>Software Engineering Intern</h4><span class="dates">Jun 2021 – Sep 2021</span></div>
             <ul>
-              <li>Developed a bot that scans Python, Java, and SQL code for style violations, such as unexpected indentation and missing whitespace around operators, and automatically rejects pull requests that contain them.</li>
-              <li>Improved the bot’s SQL auto-formatting by modifying the pgFormatter source to support SQL shortcuts used internally by business analysts.</li>
+              <li>Built a bot that automatically rejects pull requests with Python, Java, and SQL style violations, and extended pgFormatter to support SQL shortcuts used internally.</li>
             </ul>
           </div>
         </li>
@@ -278,10 +279,10 @@
     <div class="wrap">
       <h2 id="oss-title">Open source</h2>
       <article class="project">
-        <h3>delta-go</h3>
+        <div class="job-head"><h3>delta-go</h3><span class="where">93 GitHub stars</span></div>
         <a class="repo" href="https://github.com/rivian/delta-go">github.com/rivian/delta-go</a>
         <ul>
-          <li>Contributed to a Go library that writes Apache Parquet files natively to Delta tables, removing the Spark-based conversion step from Rivian’s signal-decoding pipeline.</li>
+          <li>Top contributor to a Go library that natively writes Apache Parquet files to Delta tables, eliminating the Spark-based conversion step from Rivian’s signal-decoding pipeline.</li>
           <li>Implemented optimistic concurrency control with Amazon DynamoDB to synchronize commits with Apache Spark, enabling multi-cluster writes on Amazon S3.</li>
           <li>Worked with Databricks’ Delta team to align the library’s low-level API with the other official Delta connectors.</li>
         </ul>
@@ -341,11 +342,12 @@
 <script>
 (function () {
   var views = {
-    mysql: { after: 40, delta: "60% lower p99 read latency", detail: "Moved the Offers data store from Cassandra to MySQL with zero downtime." },
-    cache: { after: 20, delta: "80% lower p99 read latency", detail: "Added an in-memory cache, replicated across application servers, on top of the Redis cache-aside layer." }
+    mysql: { cacheW: 0, current: "bar-mysql", delta: "60% lower p99 read latency", detail: "Moved the Offers data store from Cassandra to MySQL with zero downtime, versus the Cassandra baseline." },
+    cache: { cacheW: 8, current: "bar-cache", delta: "80% lower than MySQL, 92% lower than Cassandra", detail: "Added an in-memory cache, replicated across application servers, on top of the Redis cache-aside layer." }
   };
   var panel = document.getElementById("latency");
-  var afterBar = document.getElementById("after-bar");
+  var barMysql = document.getElementById("bar-mysql");
+  var barCache = document.getElementById("bar-cache");
   var delta = document.getElementById("delta");
   var detail = document.getElementById("detail");
   var buttons = panel.querySelectorAll("button[data-view]");
@@ -354,7 +356,9 @@
     btn.addEventListener("click", function () {
       var v = views[btn.getAttribute("data-view")];
       buttons.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
-      afterBar.style.setProperty("--w", v.after + "%");
+      barCache.style.setProperty("--w", v.cacheW + "%");
+      barMysql.classList.toggle("current", v.current === "bar-mysql");
+      barCache.classList.toggle("current", v.current === "bar-cache");
       delta.textContent = v.delta;
       detail.textContent = v.detail;
     });
