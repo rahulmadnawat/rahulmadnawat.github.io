@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul Madnawat | Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background: radial-gradient(circle at 50% -20%, #1e293b 0%, #020617 80%);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        header {
+            padding: 140px 0 80px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.04em;
+            background: linear-gradient(to bottom, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .bio {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        h2::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(to right, var(--accent), transparent);
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .role { font-size: 1.3rem; font-weight: 600; }
+        .company { color: var(--accent); font-weight: 500; }
+        .date { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .sub-role-container {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sub-role-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-role-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .bullet-list {
+            margin-top: 1rem;
+            list-style-type: none;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-secondary);
+        }
+
+        .bullet-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .highlight { color: var(--text-primary); font-weight: 600; }
+
+        .skills-group { margin-bottom: 2rem; }
+        .skill-group-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .skills-container { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 60px 0;
+        }
+
+        .links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .links a:hover { color: var(--accent); transform: translateY(-2px); }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .project-link:hover { text-decoration: underline; }
+
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .card-header { flex-direction: column; }
+            .date { margin-top: 0.25rem; }
+            .links { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <div class="container">
+        <header class="animate">
+            <h1>Rahul Madnawat</h1>
+            <p class="subtitle">Software Engineer @ Uber</p>
+            <p class="bio">
+                Software Engineer focused on building scalable backend systems and distributed infrastructure. 
+                Specializing in high-performance data systems using Go and Rust.
+            </p>
+        </header>
+
+        <section id="experience" class="animate">
+            <h2 id="sec-exp"><i data-lucide="briefcase"></i> Experience</h2>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="role">Software Engineer II</div>
+                        <div class="company">Uber</div>
+                    </div>
+                    <div class="date">Aug 2024 – Present</div>
+                </div>
+                <ul class="bullet-list">
+                    <li>Architecting high-scale backend systems for <span class="highlight">Uber Eats</span>.</li>
+                    <li>Migrated data stores from Cassandra to MySQL with zero downtime, cutting <span class="highlight">p99 read latency by 60%</span> and improving system reliability.</li>
+                    <li>Designed an in-memory cache over Redis, reducing <span class="highlight">p99 read latency by 80%</span>.</li>
+                    <li>Led migration to separate control/data planes, enabling <span class="highlight">1.5M QPS</span>.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="role">Software Engineer II</div>
+                        <div class="company">Rivian</div>
+                    </div>
+                    <div class="date">Dec 2023 – Aug 2024</div>
+                </div>
+                <ul class="bullet-list">
+                    <li>Built Rust compaction service for Delta Lake to reduce read latency for thousands of users.</li>
+                    <li>Overhauled AWS Lake Formation using tag-based access control (TBAC).</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="role">Software Engineer</div>
+                        <div class="company">Rivian</div>
+                    </div>
+                    <div class="date">Feb 2023 – Dec 2023</div>
+                </div>
+                <ul class="bullet-list">
+                    <li>Developed high-throughput Go service decoding tens of terabytes of vehicle signals daily.</li>
+                    <li>Cut signal serialization CPU usage by 20% and saved <span class="highlight">$72k/year</span> via Apache Arrow.</li>
+                    <li>Drove Zstandard compression adoption, saving <span class="highlight">$120k/year</span> in storage costs.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="role">Software Engineering Intern</div>
+                        <div class="company">Rivian</div>
+                    </div>
+                    <div class="date">Jun 2022 – Sep 2022</div>
+                </div>
+                <ul class="bullet-list">
+                    <li>Architected Apache Spark pipeline for ingesting billions of daily audit logs via Kafka.</li>
+                    <li>Built AWS Lambda application to enforce runtime limits on Databricks jobs.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="role">Software Engineering Intern</div>
+                        <div class="company">Cisco</div>
+                    </div>
+                    <div class="date">Jun 2021 – Sep 2021</div>
+                </div>
+                <ul class="bullet-list">
+                    <li>Developed automated style-violation scanning bot for Python, Java, and SQL.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects" class="animate">
+            <h2 id="sec-proj"><i data-lucide="layers"></i> Projects</h2>
+            <div class="card">
+                <div class="card-header">
+                    <div class="role">delta-go</div>
+                    <div class="company">Open Source</div>
+                </div>
+                <ul class="bullet-list">
+                    <li>Contributed to Go library for natively writing Apache Parquet files to Delta tables.</li>
+                    <li>Implemented optimistic concurrency control using Amazon DynamoDB.</li>
+                </ul>
+                <a href="https://github.com/rivian/delta-go" class="project-link" target="_blank">View on GitHub →</a>
+            </div>
+        </section>
+
+        <section id="education" class="animate">
+            <h2 id="sec-edu"><i data-lucide="graduation-cap"></i> Education</h2>
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="role">B.S. Computer Science</div>
+                        <div class="company">UCLA</div>
+                    </div>
+                    <div class="date">2020 – 2022</div>
+                </div>
+                <p class="description">GPA: 3.90/4.00</p>
+            </div>
+        </section>
+
+        <section id="skills" class="animate">
+            <h2 id="sec-skills"><i data-lucide="cpu"></i> Technical Skills</h2>
+            <div class="skills-group">
+                <span class="skill-group-title">Languages</span>
+                <div class="skills-container">
+                    <span class="skill-tag">Go</span><span class="skill-tag">Rust</span><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">C++</span><span class="skill-tag">C</span><span class="skill-tag">SQL</span>
+                </div>
+            </div>
+            <div class="skills-group">
+                <span class="skill-group-title">Distributed & Data Systems</span>
+                <div class="skills-container">
+                    <span class="skill-tag">MySQL</span><span class="skill-tag">Cassandra</span><span class="skill-tag">Redis</span><span class="skill-tag">Kafka</span><span class="skill-tag">Spark</span><span class="skill-tag">Delta Lake</span><span class="skill-tag">Arrow</span>
+                </div>
+            </div>
+            <div class="skills-group">
+                <span class="skill-group-title">Cloud & Infrastructure</span>
+                <div class="skills-container">
+                    <span class="skill-tag">AWS</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">Docker</span><span class="skill-tag">Terraform</span><span class="skill-tag">Databricks</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="links animate">
+            <a href="https://www.linkedin.com/in/rahul-madnawat/" target="_blank"><i data-lucide="linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/rahulmadnawat" target="_blank"><i data-lucidate="github"></i> GitHub</a>
+            <a href="mailto:madnarah@gmail.com"><i data-lucide="mail"></i> Email</a>
+        </div>
+
+        <footer>
+            &copy; 2026 Rahul Madnawat.
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+</body>
+</html>
